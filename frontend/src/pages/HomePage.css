@@ -1,0 +1,101 @@
+/* frontend/src/pages/HomePage.css */
+.homepage-container {
+    max-width: 960px;
+    margin: 4rem auto;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.auth-links {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center; /* 垂直居中 */
+}
+
+/* --- 新增样式 --- */
+.welcome-message {
+    font-weight: 500;
+    color: #333;
+}
+
+.auth-link.logout {
+    background: none;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.auth-link.logout:hover {
+    background-color: #f8f9fa;
+    border-color: #333;
+    color: #333;
+}
+/* --- 新增结束 --- */
+
+
+.auth-link {
+    padding: 8px 16px;
+    border: 1px solid #007bff;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.auth-link:hover {
+    background-color: #e7f1ff;
+}
+
+.auth-link.register {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.auth-link.register:hover {
+    background-color: #0056b3;
+}
+/* --- 新增结束 --- */
+
+
+.exam-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.exam-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-align: left;
+}
+
+.exam-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.exam-card h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.exam-card p {
+    color: #555;
+    margin-bottom: 0.5rem;
+}

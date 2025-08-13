@@ -1,0 +1,383 @@
+### 1. 创建一个新的考试局 (AP)
+POST http://localhost:3001/api/examboards
+Content-Type: application/json
+
+{
+  "name": "AP"
+}
+
+### 2. 创建另一个考试局 (A-Level)
+POST http://localhost:3001/api/examboards
+Content-Type: application/json
+
+{
+  "name": "A-Level"
+}
+
+### 3. 获取所有考试局的列表
+GET http://localhost:3001/api/examboards
+
+### 4. 创建一个新学科 (APCSA)，并关联到 AP (ID=1)
+POST http://localhost:3001/api/subjects
+Content-Type: application/json
+
+{
+  "name": "AP Computer Science A",
+  "examBoardId": 1
+}
+
+### 5. 创建另一个学科 (IGCSE CS)，并关联到 A-Level (ID=2)
+POST http://localhost:3001/api/subjects
+Content-Type: application/json
+
+{
+  "name": "IGCSE Computer Science",
+  "examBoardId": 2
+}
+
+
+### 6. 获取所有学科及其所属的考试局
+GET http://localhost:3001/api/subjects
+
+### 7. 为 "AP Computer Science A" (subjectId: 1) 创建一个新试卷
+POST http://localhost:3001/api/exams
+Content-Type: application/json
+
+{
+  "title": "APCSA 2024 Official Practice Exam",
+  "durationMinutes": 90,
+  "subjectId": 1
+}
+
+### 8. 获取所有试卷及其详细信息
+GET http://localhost:3001/api/exams
+
+### 9. 为指定试卷添加一道选择题
+# !! 注意: 请将下面的 clx... 替换为你自己的真实 Exam ID !!
+POST http://localhost:3001/api/exams/cme794hz20001saibb0bjqfkv/questions
+Content-Type: application/json
+
+{
+  "questionText": "What output is produced by the following line of code? <pre><code>System.out.println(\"Hello\");</code></pre>",
+  "questionType": "MULTIPLE_CHOICE",
+  "order": 1,
+  "options": [
+    { "text": "(A) Hello", "isCorrect": true },
+    { "text": "(B) \"Hello\"", "isCorrect": false },
+    { "text": "(C) A syntax error", "isCorrect": false },
+    { "text": "(D) An exception is thrown", "isCorrect": false }
+  ]
+}
+
+### 10. 获取单个试卷的所有详情 (包括所有问题和选项)
+# !! 注意: 再次使用你之前复制的那个真实 Exam ID !!
+GET http://localhost:3001/api/exams/cme794hz20001saibb0bjqfkv
+
+
+
+### --- 真实数据录入 ---
+
+### 1. 创建一个新的 APCSA 试卷
+POST http://localhost:3001/api/exams
+Content-Type: application/json
+
+{
+  "title": "APCSA Practice Test 2",
+  "durationMinutes": 90,
+  "subjectId": 1
+}
+
+### 记下上面返回的试卷ID，并替换到下面的URL中 ###
+
+
+### 2. 为新试卷添加第 1 题
+# !! 注意: 请将下面的 <NEW_EXAM_ID> 替换为上面刚创建的试卷ID !!
+POST http://localhost:3001/api/exams/cme794hz20001saibb0bjqfkv/questions
+Content-Type: application/json
+
+{
+  "questionText": "What output is produced by the following line of code?<pre><code>System.out.println(\"\\\"This is\\n very strange\\\"\");</code></pre>",
+  "questionType": "MULTIPLE_CHOICE",
+  "order": 1,
+  "options": [
+    { "text": "(A) \\This is\\n very strange\\", "isCorrect": false },
+    { "text": "(B) \"This is very strange\"", "isCorrect": false },
+    { "text": "(C) This is<br>very strange", "isCorrect": false },
+    { "text": "(D) \\\"This is<br>very strange\\\"", "isCorrect": false },
+    { "text": "(E) \"This is<br>very strange\"", "isCorrect": true }
+  ]
+}
+
+### 3. 为新试卷添加第 2 题
+POST http://localhost:3001/api/exams/cme794hz20001saibb0bjqfkv/questions
+Content-Type: application/json
+
+{
+  "questionText": "A certain class, SomeClass, contains a method with the header `public int getValue(int n)`. Which of the following method headers, if added, will cause an error?<br>I. public int getValue()<br>II. public double getValue(int n)<br>III. public int getValue(double n)",
+  "questionType": "MULTIPLE_CHOICE",
+  "order": 2,
+  "options": [
+    { "text": "(A) I only", "isCorrect": false },
+    { "text": "(B) II only", "isCorrect": true },
+    { "text": "(C) III only", "isCorrect": false },
+    { "text": "(D) I and II only", "isCorrect": false },
+    { "text": "(E) I and III only", "isCorrect": false }
+  ]
+}
+
+### 4. 为新试卷添加第 3 题
+POST http://localhost:3001/api/exams/cme794hz20001saibb0bjqfkv/questions
+Content-Type: application/json
+
+{
+  "questionText": "Which of the following replacements for `/* expression */` in `int num = /* expression */;` creates in num a random integer from 2 to 50, inclusive?",
+  "questionType": "MULTIPLE_CHOICE",
+  "order": 3,
+  "options": [
+    { "text": "(A) (int) (Math.random() * 50) + 2", "isCorrect": false },
+    { "text": "(B) (int) (Math.random() * 49) + 2", "isCorrect": false },
+    { "text": "(C) (int) (Math.random() * 49) + 2", "isCorrect": true },
+    { "text": "(D) (int) (Math.random() * 50) + 2", "isCorrect": false },
+    { "text": "(E) (int) (Math.random() * 48) + 2", "isCorrect": false }
+  ]
+}
+
+### 5. 为新试卷添加第 4 题
+POST http://localhost:3001/api/exams/cme794hz20001saibb0bjqfkv/questions
+Content-Type: application/json
+
+{
+  "questionText": "Consider the code segment `int num = 0, score = 10; if (num != 0 && score / num > SOME_CONSTANT) { statement1; } else { statement2; }`. What is the result?",
+  "questionType": "MULTIPLE_CHOICE",
+  "order": 4,
+  "options": [
+    { "text": "(A) An ArithmeticException will be thrown.", "isCorrect": false },
+    { "text": "(B) A syntax error will occur.", "isCorrect": false },
+    { "text": "(C) statement1, but not statement2, will be executed.", "isCorrect": false },
+    { "text": "(D) statement2, but not statement1, will be executed.", "isCorrect": true },
+    { "text": "(E) Neither statement1 nor statement2 will be executed.", "isCorrect": false }
+  ]
+}
+
+### 6. 为新试卷添加第 5 题
+POST http://localhost:3001/api/exams/cme794hz20001saibb0bjqfkv/questions
+Content-Type: application/json
+
+{
+  "questionText": "The shuffle algorithm is run on an array `nums` initialized to {8, 7, 6, 5, 4}. The values for `randPos` are 3, 2, 0, 0 in that order. What is in `nums[2]` after execution?",
+  "questionType": "MULTIPLE_CHOICE",
+  "order": 5,
+  "options": [
+    { "text": "(A) 8", "isCorrect": true },
+    { "text": "(B) 7", "isCorrect": false },
+    { "text": "(C) 6", "isCorrect": false },
+    { "text": "(D) 5", "isCorrect": false },
+    { "text": "(E) 4", "isCorrect": false }
+  ]
+}
+
+### 7. 为新试卷添加第 38 题 (左右分栏布局)
+# !! 注意: 请将下面的 <NEW_EXAM_ID> 替换为 "APCSA Practice Test 2" 的试卷ID !!
+POST http://localhost:3001/api/exams/cme794hz20001saibb0bjqfkv/questions
+Content-Type: application/json
+
+{
+  "order": 38,
+  "layoutType": "SPLIT",
+  "stimulusText": "<p>A matrix class that manipulates matrices contains the following declaration.</p><pre><code>private int[][] mat = new int[numRows][numCols];</code></pre><p>Consider the following method that alters matrix mat.</p><pre><code>public void doSomething(){\n  int width = mat[0].length;\n  int numRows = mat.length;\n  for (int row = 0; row < numRows; row++)\n    for (int col = 0; col < width / 2; col++)\n      mat[row][col] = mat[row][width - 1 - col];\n}</code></pre><p>If mat has current value<br>[[1,2,3,4,5,6], [1,3,5,7,9,11]]</p>",
+  "questionText": "what will the value of mat be after a call to doSomething?",
+  "questionType": "MULTIPLE_CHOICE",
+  "options": [
+    { "text": "(A) [[1,2,3,3,2,1], [1,3,5,5,3,1]]", "isCorrect": false },
+    { "text": "(B) [[6,5,4,4,5,6], [11,9,7,7,9,11]]", "isCorrect": true },
+    { "text": "(C) [[6,5,4,3,2,1], [11,9,7,5,3,1]]", "isCorrect": false },
+    { "text": "(D) [[1,2,3,4,5,6], [1,2,3,4,5,6]]", "isCorrect": false },
+    { "text": "(E) [[1,3,5,7,9,11], [1,3,5,7,9,11]]", "isCorrect": false }
+  ]
+}
+
+### --- 用户系统测试 ---
+
+### 1. 注册一个新用户
+POST http://localhost:3001/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Alice",
+  "email": "alice@example.com",
+  "password": "securepassword123"
+}
+
+### 2. 尝试用同一个邮箱再次注册 (预期会失败)
+POST http://localhost:3001/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Alice Two",
+  "email": "alice@example.com",
+  "password": "anotherpassword"
+}
+
+### 3. 使用正确的密码登录 (预期成功)
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "securepassword123"
+}
+
+
+### 4. 使用错误的密码登录 (预期失败)
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "wrongpassword"
+}
+
+### --- Admin API 测试: Exams ---
+
+### 1. [Admin] 获取所有试卷
+GET http://localhost:3001/api/admin/exams
+
+### 2. [Admin] 创建一个新试卷 (IB)
+POST http://localhost:3001/api/admin/exams
+Content-Type: application/json
+
+{
+  "title": "IB Computer Science HL Paper 1",
+  "durationMinutes": 120,
+  "subjectId": 2
+}
+
+### 记下上面返回的试卷ID (比如 "clxyz...")，并替换到下面 ###
+
+### 3. [Admin] 更新刚创建的试卷标题
+# !! 替换 <NEW_IB_EXAM_ID> !!
+PUT http://localhost:3001/api/admin/exams/cme8gqmvq0001sa7rsow3cw3k
+Content-Type: application/json
+
+{
+  "title": "IB CS HL Paper 1 (Updated)",
+  "durationMinutes": 120,
+  "subjectId": 2
+}
+
+
+### 4. [Admin] 删除刚创建的试卷
+# !! 替换 <NEW_IB_EXAM_ID> !!
+DELETE http://localhost:3001/api/admin/exams/cme8gqmvq0001sa7rsow3cw3k
+
+### --- Admin API 测试: Questions ---
+
+# 首先，你需要一个 Exam ID。运行 [Admin] 获取所有试卷 的请求，
+# 从列表中复制一个ID，然后粘贴到下面的 <YOUR_EXAM_ID> 处。
+
+### 1. [Admin] 获取一份试卷下的所有题目
+GET http://localhost:3001/api/admin/exams/cme794hz20001saibb0bjqfkv/questions
+
+### 2. [Admin] 为该试卷添加一道新题目 (第6题)
+POST http://localhost:3001/api/admin/exams/cme794hz20001saibb0bjqfkv/questions
+Content-Type: application/json
+
+{
+  "order": 6,
+  "questionText": "这是一个新的测试题目吗？",
+  "questionType": "MULTIPLE_CHOICE",
+  "layoutType": "STACKED",
+  "options": [
+    { "text": "(A) 是的", "isCorrect": true },
+    { "text": "(B) 不是", "isCorrect": false }
+  ]
+}
+
+### 记下上面返回的题目ID (比如 "cly...")，并替换到下面 ###
+
+### 3. [Admin] 更新刚创建的第6题
+# !! 替换 <YOUR_EXAM_ID> 和 <NEW_QUESTION_ID> !!
+PUT http://localhost:3001/api/admin/exams/cme794hz20001saibb0bjqfkv/questions/cme8n3az60001saw8zgxffi3h
+Content-Type: application/json
+
+{
+  "order": 6,
+  "questionText": "这是一个更新后的测试题目吗？",
+  "questionType": "MULTIPLE_CHOICE",
+  "layoutType": "STACKED",
+  "options": [
+    { "text": "(A) 是的，已更新", "isCorrect": true },
+    { "text": "(B) 不是", "isCorrect": false }
+  ]
+}
+
+### 4. [Admin] 删除刚创建的第6题
+# !! 替换 <YOUR_EXAM_ID> 和 <NEW_QUESTION_ID> !!
+DELETE http://localhost:3001/api/admin/exams/cme794hz20001saibb0bjqfkv/questions/cme8n3az60001saw8zgxffi3h
+
+### --- Admin API 测试: Knowledge Points & Tagging ---
+
+### 1. [Admin] 创建一个新知识点 "Java Loops"
+POST http://localhost:3001/api/admin/knowledge-points
+Content-Type: application/json
+
+{
+  "name": "Java Loops",
+  "subjectId": 1
+}
+
+### 为题目打上 "Java Loops" 标签 (最终修正版)
+# !! 确保你有一个真实的 questionId 和 knowledgePointId !!
+POST http://localhost:3001/api/admin/question-tags/add
+Content-Type: application/json
+
+{
+  "questionId": "cme82a570000fsa3kfv2oouli",
+  "newPointId": 13
+}
+
+
+### 3. [Admin] 从该题目移除 "Java Loops" 标签 (最终修正版)
+# 这个操作会从问题的关联中移除一个知识点，但不会删除知识点本身
+DELETE http://localhost:3001/api/admin/question-tags/remove
+Content-Type: application/json
+
+{
+  "questionId": "cme82a570000fsa3kfv2oouli",
+  "pointIdToRemove": 13
+}
+
+### 4. [Admin] 再次为同一个问题添加 "Java Loops" 标签
+POST http://localhost:3001/api/admin/question-tags/add
+Content-Type: application/json
+
+{
+  "questionId": "cme82a570000fsa3kfv2oouli",
+  "newPointId": 13
+}
+
+### 5. [Admin] 移除 "Java Loops" 标签
+DELETE http://localhost:3001/api/admin/question-tags/remove
+Content-Type: application/json
+
+{
+  "questionId": "cme82a570000fsa3kfv2oouli",
+  "pointIdToRemove": 13
+}
+
+### 6. [Admin] 再次移除一个已经被移除的标签
+DELETE http://localhost:3001/api/admin/question-tags/remove
+Content-Type: application/json
+
+{
+  "questionId": "cme82a570000fsa3kfv2oouli",
+  "pointIdToRemove": 13
+}
+
+### 7. [Admin] 删除 "Java Loops" 知识点
+DELETE http://localhost:3001/api/admin/knowledge-points/13
+Content-Type: application/json
+
+### 8. [Admin] 尝试删除 ID 为 999 的不存在的知识点
+DELETE http://localhost:3001/api/admin/knowledge-points/999
+Content-Type: application/json
